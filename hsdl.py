@@ -35,12 +35,12 @@ def dlPage(pageNum,s): #Pass the pageNum and Requests session
     text.append(soup.find(href="/story/"+str(pageNum+1)).get_text())
     fileName = os.path.join(directories[2], str(pageNum)+".txt")
     with open(fileName, 'w') as f:
-        f.write("title:"+text[0]+"\n")
+        f.write("title:"+text[0]+"TITLEEND\n")
         if noBody == 1:
-            f.write("next:"+text[1]+"\n")
+            f.write("next:"+text[1]+"COMMANDEND\n")
         else:
-            f.write("body:"+text[1]+"\n")
-            f.write("next:"+text[2]+"\n")
+            f.write("body:"+text[1]+"BODYEND\n")
+            f.write("command:"+text[2]+"COMMANDEND\n")
     
     imageUrl = imagePath+padNum+".gif"
     
