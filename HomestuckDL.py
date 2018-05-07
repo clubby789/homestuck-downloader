@@ -13,7 +13,7 @@ for i in directories:
 
 def dlPage(pageNum):
     text = []
-    
+    noBody = 0
     padNum = str(pageNum).rjust(5,'0')       
     url = "https://www.homestuck.com/story/"+str(pageNum)
 
@@ -24,16 +24,16 @@ def dlPage(pageNum):
     try:
         text.append(soup.p.get_text().replace('\r','\n'))
     except:
-        print("")
+        noBody = 1
     text.append(soup.find(href="/story/"+str(pageNum+1)).get_text())
     fileName = os.path.join(directories[2], str(pageNum)+".txt")
     with open(fileName, 'w') as f:
         f.write("title:"+text[0]+"\n")
-        f.write("body:"+text[1]+"\n")
-        try:
+        if noBody == 1:
+            f.write("next:"+text[1]+"\n")
+        else:
+            f.write("body:"+text[1]+"\n")
             f.write("next:"+text[2]+"\n")
-        except:
-            print("")
     
     imageUrl = imagePath+padNum+".gif"
     
