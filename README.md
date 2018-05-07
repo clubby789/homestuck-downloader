@@ -5,6 +5,7 @@ REQUIRED MODULES:
 - bs4
 - requests
 - pyqt5
+
 Run `python -m pip install bs4,requests,pyqt5`
 to install
 
