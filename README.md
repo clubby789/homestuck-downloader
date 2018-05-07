@@ -1,4 +1,11 @@
 # Homestuck Downloader
 A python program to download the webcomic homestuck.
 
-Just clone the repo and run HomestuckDL.py
+REQUIRED MODULES:
+- bs4
+- requests
+
+Run pip install bs4,requests
+to install
+
+Then clone the repo and run HomestuckDL.py
