@@ -7,11 +7,11 @@ A python program to download the webcomic homestuck.
 REQUIRED MODULES:
 - bs4
 - requests
+<<<<<<< HEAD
 
 Run `python -m pip install -r requirements.txt`
 to install.
 
 # Usage
 Command line - `python example.py <startPage> <endPage>`
-
 IDLE - Run `example.py`
