@@ -1,7 +1,7 @@
 import requests, threading, urllib.request, glob, os
 import hsdl
 
-hsdl.initalise()
+hsdl.initialise()
 s = requests.Session() #Open session
 begin = input("What page to start download on? ")
 end = input("What page to end download on? ")
