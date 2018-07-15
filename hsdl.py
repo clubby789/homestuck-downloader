@@ -4,8 +4,6 @@ import os,glob #Filesystem work
 import threading #Efficiency
 
 
-
-
 def initialise():
     global directories
     directories=["downloaded","downloaded/images","downloaded/text"]
@@ -32,7 +30,10 @@ def dlPage(pageNum,s): #Pass the pageNum and Requests session
     except:
         body = None
 
-    next = soup.find(href="/story/"+str(pageNum+1)).get_text()
+    try:
+        next = soup.find(href="/story/"+str(pageNum+1)).get_text()
+    except AttributeError:
+        next = "Next page title could not be found"
 
     fileName = os.path.join(directories[2], str(pageNum)+".txt")
     with open(fileName, 'w') as f:
@@ -41,8 +42,14 @@ def dlPage(pageNum,s): #Pass the pageNum and Requests session
             f.write("body: "+body+"\n")
         f.write("next: "+next+"\n")
 
-    imageUrl = imagePath+padNum+".gif"
-
+    #imageUrl = imagePath+padNum+".gif"
+    imageUrl = soup.findAll("img", {"class": "mar-x-auto disp-bl"})
+    for i in imageUrl:
+        i = i.attrs['src']
+        name = i.split('/')[-1]
+        urllib.request.urlretrieve(i,'downloaded/images/'+name)
+    
+'''
     if s.get(imageUrl).status_code == 200:
         urllib.request.urlretrieve(imageUrl,'downloaded/images/'+padNum+'.gif')
 
@@ -51,3 +58,4 @@ def dlPage(pageNum,s): #Pass the pageNum and Requests session
         urllib.request.urlretrieve(imageUrl,'downloaded/images/'+padNum+'_1.gif')
         imageUrl = imagePath+padNum+"_2.gif"
         urllib.request.urlretrieve(imageUrl,'downloaded/images/'+padNum+'_2.gif')
+'''
