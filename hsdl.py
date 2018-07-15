@@ -21,9 +21,8 @@ def initialise():
 
 def dlPage(pageNum,s): #Pass the pageNum and Requests session
     text = []
-    noBody = 0
-    padNum = str(pageNum).rjust(5,'0')       
-    url = "https://www.homestuck.com/story/"+str(pageNum)
+    noBody = False
+    padNum = str(pageNum).rjust(5,'0')
 
     r = s.get("https://www.homestuck.com/story/"+str(pageNum))
     soup = BeautifulSoup(r.text, 'html.parser')
@@ -32,12 +31,13 @@ def dlPage(pageNum,s): #Pass the pageNum and Requests session
     try:
         text.append(soup.p.get_text().replace('\r','\n'))
     except:
-        noBody = 1
+        noBody = True
+
     text.append(soup.find(href="/story/"+str(pageNum+1)).get_text())
     fileName = os.path.join(directories[2], str(pageNum)+".txt")
     with open(fileName, 'w') as f:
         f.write("title:"+text[0]+"\n")
-        if noBody == 1:
+        if noBody:
             f.write("next:"+text[1]+"\n")
         else:
             f.write("body:"+text[1]+"\n")
