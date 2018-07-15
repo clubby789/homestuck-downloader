@@ -1,17 +1,10 @@
 import urllib.request, requests #File retrieval
 from bs4 import BeautifulSoup #Scraping
-import os,glob #Filesystem work
-import threading #Efficiency
 
-
-
+directories=["downloaded","downloaded/images","downloaded/text"]
+imagePath = "https://www.homestuck.com/images/storyfiles/hs2/"
 
 def initialise():
-    global directories
-    directories=["downloaded","downloaded/images","downloaded/text"]
-    global imagePath
-    imagePath = "https://www.homestuck.com/images/storyfiles/hs2/"
-
     for i in directories:
         i = os.path.join(os.getcwd(), i)
         if not os.path.isdir(i):
