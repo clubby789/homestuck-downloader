@@ -19,6 +19,10 @@ def dlPage(pageNum,s): #Pass the pageNum and Requests session
     r = s.get("https://www.homestuck.com/story/"+str(pageNum))
     soup = BeautifulSoup(r.text, 'html.parser')
 
+    if r.status_code == 404:
+        print("Got 404 on retrieving page {}".format(pageNum))
+        return
+
     title = soup.h2.get_text()
 
     try:
