@@ -6,7 +6,7 @@ import threading #Efficiency
 
 
 
-def initalise():
+def initialise():
     global directories
     directories=["/downloaded","/downloaded/images","./downloaded/text"]
     global imagePath
