@@ -17,6 +17,18 @@ def initialise():
 
     #s = requests.Session()
 
+def compensate_image_name(name):
+	# Separate page number from the other stuff
+	page = int(name[:5])
+	other = name[5:]
+
+	# Increment page depending on number of known lower broken pages
+	print("Compensating page {} with {} steps".format(page , sum(p < page for p in brokenPages)))
+	page += sum(p <= page for p in brokenPages)
+
+	# Then rebuild string and return it
+	return "{:05}{}".format(page,other)
+
 def dlPage(pageNum,s): #Pass the pageNum and Requests session
     if pageNum in brokenPages:
         print("Skipping known broken page: {}".format(pageNum))
@@ -58,9 +70,12 @@ def dlPage(pageNum,s): #Pass the pageNum and Requests session
     imageUrl = soup.findAll("img", {"class": "mar-x-auto disp-bl"})
     for i in imageUrl:
         i = i.attrs['src']
+
         name = i.split('/')[-1]
+        name = compensate_image_name(name)
+
         urllib.request.urlretrieve(i,'downloaded/images/'+name)
-    
+
 '''
     if s.get(imageUrl).status_code == 200:
         urllib.request.urlretrieve(imageUrl,'downloaded/images/'+padNum+'.gif')
