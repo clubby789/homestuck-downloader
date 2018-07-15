@@ -1,5 +1,6 @@
 import urllib.request, requests #File retrieval
 from bs4 import BeautifulSoup #Scraping
+import os #Filesystem work
 
 directories=["downloaded","downloaded/images","downloaded/text"]
 imagePath = "https://www.homestuck.com/images/storyfiles/hs2/"
