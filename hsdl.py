@@ -20,28 +20,26 @@ def initialise():
     #s = requests.Session()
 
 def dlPage(pageNum,s): #Pass the pageNum and Requests session
-    text = []
-    noBody = False
     padNum = str(pageNum).rjust(5,'0')
 
     r = s.get("https://www.homestuck.com/story/"+str(pageNum))
     soup = BeautifulSoup(r.text, 'html.parser')
-    text = []
-    text.append(soup.h2.get_text())
-    try:
-        text.append(soup.p.get_text().replace('\r','\n'))
-    except:
-        noBody = True
 
-    text.append(soup.find(href="/story/"+str(pageNum+1)).get_text())
+    title = soup.h2.get_text()
+
+    try:
+        body = soup.p.get_text().replace('\r','\n')
+    except:
+        body = None
+
+    next = soup.find(href="/story/"+str(pageNum+1)).get_text()
+
     fileName = os.path.join(directories[2], str(pageNum)+".txt")
     with open(fileName, 'w') as f:
-        f.write("title:"+text[0]+"\n")
-        if noBody:
-            f.write("next:"+text[1]+"\n")
-        else:
-            f.write("body:"+text[1]+"\n")
-            f.write("next:"+text[2]+"\n")
+        f.write("title: "+title+"\n")
+        if body is not None:
+            f.write("body: "+body+"\n")
+        f.write("next: "+next+"\n")
 
     imageUrl = imagePath+padNum+".gif"
 
