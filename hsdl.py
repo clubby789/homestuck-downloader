@@ -42,35 +42,14 @@ def dlPage(pageNum,s): #Pass the pageNum and Requests session
         else:
             f.write("body:"+text[1]+"\n")
             f.write("next:"+text[2]+"\n")
-    
+
     imageUrl = imagePath+padNum+".gif"
-    
+
     if s.get(imageUrl).status_code == 200:
         urllib.request.urlretrieve(imageUrl,'downloaded/images/'+padNum+'.gif')
-        
+
     elif s.get(imagePath+padNum+"_1.gif").status_code == 200:
         imageUrl = imagePath+padNum+"_1.gif"
         urllib.request.urlretrieve(imageUrl,'downloaded/images/'+padNum+'_1.gif')
         imageUrl = imagePath+padNum+"_2.gif"
         urllib.request.urlretrieve(imageUrl,'downloaded/images/'+padNum+'_2.gif')
-    
-'''
-begin = input("What page to start download on? ")
-end = input("What page to end download on? ")
-current = int(begin)
-total = int(end) - int(begin)
-
-
-while not current == int(end)+1:
-    fileName = "./downloaded/images/"+str(current).rjust(5,'0')+"*.gif"
-
-    
-    if not glob.glob(fileName, recursive=True):
-        t = threading.Thread(target=dlPage, args=(current,))
-        t.start()
-    current+=1
-for i in glob.glob("./downloaded/images/*.gif"):
-    while os.path.getsize(i) == 0:
-        urllib.request.urlretrieve(imagePath+i[20:],i)
-        
-'''
