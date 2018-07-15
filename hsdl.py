@@ -8,16 +8,17 @@ import threading #Efficiency
 
 def initialise():
     global directories
-    directories=["/downloaded","/downloaded/images","./downloaded/text"]
+    directories=["downloaded","downloaded/images","downloaded/text"]
     global imagePath
     imagePath = "https://www.homestuck.com/images/storyfiles/hs2/"
-    
+
     for i in directories:
-        i = os.getcwd() + i
+        i = os.path.join(os.getcwd(), i)
         if not os.path.isdir(i):
             os.makedirs(i)
+
     #s = requests.Session()
-    
+
 def dlPage(pageNum,s): #Pass the pageNum and Requests session
     text = []
     noBody = 0
