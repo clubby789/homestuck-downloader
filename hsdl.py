@@ -2,6 +2,10 @@ import urllib.request, requests #File retrieval
 from bs4 import BeautifulSoup #Scraping
 import os #Filesystem work
 
+# List of broken pages. It is currently believed that there
+# should be 6 pages in this list. Add them as they are found!
+brokenPages = [2399]
+
 directories=["downloaded","downloaded/images","downloaded/text"]
 imagePath = "https://www.homestuck.com/images/storyfiles/hs2/"
 
@@ -14,6 +18,10 @@ def initialise():
     #s = requests.Session()
 
 def dlPage(pageNum,s): #Pass the pageNum and Requests session
+    if pageNum in brokenPages:
+        print("Skipping known broken page: {}".format(pageNum))
+        return
+
     padNum = str(pageNum).rjust(5,'0')
 
     r = s.get("https://www.homestuck.com/story/"+str(pageNum))
@@ -30,8 +38,12 @@ def dlPage(pageNum,s): #Pass the pageNum and Requests session
     except:
         body = None
 
+    nextPage=pageNum+1
+    while nextPage in brokenPages:
+        nextPage += 1
+
     try:
-        next = soup.find(href="/story/"+str(pageNum+1)).get_text()
+        next = soup.find(href="/story/"+str(nextPage)).get_text()
     except AttributeError:
         next = "Next page title could not be found"
 

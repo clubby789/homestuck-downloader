@@ -1,8 +1,6 @@
 import requests, threading, urllib.request, glob, os
 import hsdl
 
-brokenPages = [2399]
-
 hsdl.initialise()
 s = requests.Session() #Open session
 begin = input("What page to start download on? ")
@@ -11,7 +9,7 @@ total = int(end) - int(begin)
 
 
 for pageNum in range(int(begin),int(end)+1):
-    if pageNum in brokenPages:
+    if pageNum in hsdl.brokenPages:
     	continue
 
     fileName = "./downloaded/images/{:05}*.gif".format(pageNum)
