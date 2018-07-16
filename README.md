@@ -12,5 +12,6 @@ Run `python -m pip install -r requirements.txt`
 to install.
 
 # Usage
-Command line - 'python example.py <startPage> <endPage>'
-IDLE - Run example.py  
+Command line - `python example.py <startPage> <endPage>`
+
+IDLE - Run `example.py`
