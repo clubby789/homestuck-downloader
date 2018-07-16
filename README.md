@@ -9,6 +9,8 @@ REQUIRED MODULES:
 - requests
 
 Run `python -m pip install -r requirements.txt`
-to install
+to install.
 
-Then clone the repo and run HomestuckDL.py
+# Usage
+Command line - 'python example.py <startPage> <endPage>'
+IDLE - Run example.py  
