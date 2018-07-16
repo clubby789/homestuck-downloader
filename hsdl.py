@@ -17,23 +17,14 @@ def initialise():
 
     #s = requests.Session()
 
-def compensate_image_name(name):
+def compensate_image_name(name, pageNum):
 	# Separate page number from the other stuff
-	page = int(name[:5])
 	other = name[5:]
 
-	# Increment page depending on number of known lower broken pages
-	print("Compensating page {} with {} steps".format(page , sum(p < page for p in brokenPages)))
-	page += sum(p <= page for p in brokenPages)
-
 	# Then rebuild string and return it
-	return "{:05}{}".format(page,other)
+	return "{:05}{}".format(pageNum,other)
 
 def dlPage(pageNum,s): #Pass the pageNum and Requests session
-    if pageNum in brokenPages:
-        print("Skipping known broken page: {}".format(pageNum))
-        return
-
     padNum = str(pageNum).rjust(5,'0')
 
     r = s.get("https://www.homestuck.com/story/"+str(pageNum))
@@ -72,7 +63,7 @@ def dlPage(pageNum,s): #Pass the pageNum and Requests session
         i = i.attrs['src']
 
         name = i.split('/')[-1]
-        name = compensate_image_name(name)
+        name = compensate_image_name(name, pageNum)
 
         urllib.request.urlretrieve(i,'downloaded/images/'+name)
 
