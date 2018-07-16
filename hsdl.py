@@ -41,6 +41,7 @@ def dlPage(pageNum,s): #Pass the pageNum and Requests session
 
     if r.status_code == 404:
         print("Got 404 on retrieving page {}".format(pageNum))
+	brokenPages.append(pageNum) #Output to file later?
         return
 
     title = soup.h2.get_text()
@@ -75,14 +76,3 @@ def dlPage(pageNum,s): #Pass the pageNum and Requests session
         name = compensate_image_name(name)
 
         urllib.request.urlretrieve(i,'downloaded/images/'+name)
-
-'''
-    if s.get(imageUrl).status_code == 200:
-        urllib.request.urlretrieve(imageUrl,'downloaded/images/'+padNum+'.gif')
-
-    elif s.get(imagePath+padNum+"_1.gif").status_code == 200:
-        imageUrl = imagePath+padNum+"_1.gif"
-        urllib.request.urlretrieve(imageUrl,'downloaded/images/'+padNum+'_1.gif')
-        imageUrl = imagePath+padNum+"_2.gif"
-        urllib.request.urlretrieve(imageUrl,'downloaded/images/'+padNum+'_2.gif')
-'''
