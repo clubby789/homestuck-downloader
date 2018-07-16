@@ -1,11 +1,20 @@
-import requests, threading, urllib.request, glob, os
+import requests, threading, urllib.request, glob, os, sys
 import hsdl
+
+if len(sys.argv) == 3:
+    begin = sys.argv[1]
+    end = sys.argv[2]
+    total = int(end) - int(begin)
+elif len(sys.argv) == 1:
+    begin = input("What page to start download on? ")
+    end = input("What page to end download on? ")
+    total = int(end) - int(begin)
+else:
+    print("Syntax - example.py <beginPage> <endPage>")
 
 hsdl.initialise()
 s = requests.Session() #Open session
-begin = input("What page to start download on? ")
-end = input("What page to end download on? ")
-total = int(end) - int(begin)
+
 
 
 for pageNum in range(int(begin),int(end)+1):
