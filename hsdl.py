@@ -41,7 +41,7 @@ def dlPage(pageNum,s): #Pass the pageNum and Requests session
 
     if r.status_code == 404:
         print("Got 404 on retrieving page {}".format(pageNum))
-	brokenPages.append(pageNum) #Output to file later?
+        brokenPages.append(pageNum)
         return
 
     title = soup.h2.get_text()
